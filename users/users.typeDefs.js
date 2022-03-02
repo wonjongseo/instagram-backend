@@ -13,5 +13,9 @@ export default gql`
         followers: [User]
         createAt: String!
         updateAt: String!
+        totalFollowing: Int!
+        totalFollowers: Int!
+        isMe: Boolean!
+        isFollowing: Boolean!
     }
 `;
