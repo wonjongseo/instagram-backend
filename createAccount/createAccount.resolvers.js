@@ -1,5 +1,6 @@
 import client from "../client";
 import bcrypt from "bcrypt";
+
 export default {
     Mutation: {
         createAccount: async (
@@ -12,20 +13,24 @@ export default {
                         OR: [{username}, {email}],
                     },
                 });
-                const hashedPassword = await bcrypt.hash(password, 10);
-                if (existingUser !== null) {
+
+                if (existingUser) {
                     throw new Error("This username/password is already taken.");
                 }
-
-                return client.user.create({
+                // const hashedPassword = await bcrypt.hash(password, 10);
+                const user = await client.user.create({
                     data: {
                         firstName,
                         lastName,
                         username,
                         email,
-                        password: hashedPassword,
+                        password: await bcrypt.hash(password, 10),
                     },
                 });
+                return {
+                    ok: true,
+                    user,
+                };
             } catch (e) {
                 return e;
             }

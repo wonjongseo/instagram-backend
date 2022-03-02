@@ -6,7 +6,9 @@
     "scripts": {
         "dev": "nodemon --exec babel-node server",
         "migrate": "npx prisma migrate dev --preview-feature",
-        "studio": "npx prisma studio"
+        "studio": "npx prisma studio",
+        "premkdir": "mkdir folder",
+        "mkdir": "touch ./folder/.resolvers.js ./folder/.typeDefs.js "
     },
     "repository": {
         "type": "git",
@@ -25,7 +27,8 @@
         "bcrypt": "^5.0.1",
         "dotenv": "^16.0.0",
         "graphql": "^15.8.0",
-        "graphql-tools": "^7.0.2"
+        "graphql-tools": "^7.0.2",
+        "jsonwebtoken": "^8.5.1"
     },
     "devDependencies": {
         "@babel/core": "^7.17.5",
