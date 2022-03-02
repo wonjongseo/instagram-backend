@@ -1,5 +1,5 @@
-import client from "../client";
 import bcrypt from "bcrypt";
+import client from "../../client";
 
 export default {
     Mutation: {
@@ -17,14 +17,14 @@ export default {
                 if (existingUser) {
                     throw new Error("This username/password is already taken.");
                 }
-                // const hashedPassword = await bcrypt.hash(password, 10);
+                const hashedPassword = await bcrypt.hash(password, 10);
                 const user = await client.user.create({
                     data: {
                         firstName,
                         lastName,
                         username,
                         email,
-                        password: await bcrypt.hash(password, 10),
+                        password: hashedPassword,
                     },
                 });
                 return {
