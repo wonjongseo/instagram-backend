@@ -10,14 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Movie  {
+model User {
   id Int @default(autoincrement()) @id
-  title String
-  year Int
-  genre String?
-  createdAt DateTime @default(now())
-  updatdAt  DateTime @updatedAt
+  firstName String
+  lastName  String?
+  username  String @unique
+  email     String @unique
+  password  String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 }
-
-
-//  npx prisma migrate dev --preview-feature

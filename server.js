@@ -1,6 +1,6 @@
 import "dotenv/config";
 import schema from "./schema";
-import {ApolloServer, gql} from "apollo-server";
+import {ApolloServer} from "apollo-server";
 
 const PORT = process.env.PORT | 4000;
 
