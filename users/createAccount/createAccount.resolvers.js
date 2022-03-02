@@ -32,7 +32,10 @@ export default {
                     user,
                 };
             } catch (e) {
-                return e;
+                return {
+                    ok: false,
+                    error: "Cannot create account",
+                };
             }
         },
     },
