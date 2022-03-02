@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon --exec babel-node server",
+        "dev": "nodemon --exec babel-node server --delay 2s",
         "migrate": "npx prisma migrate dev --preview-feature",
         "studio": "npx prisma studio",
         "premkdir": "mkdir folder",
