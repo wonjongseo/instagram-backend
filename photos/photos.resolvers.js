@@ -6,6 +6,7 @@ export default {
         user: ({userid}) => client.user.findUnique({where: {id: userid}}),
         hashtags: ({id}) =>
             client.hashtag.findMany({where: {photos: {some: {id}}}}),
+        likes: ({id}) => client.like.count({where: {photoId: id}}),
     },
     Hashtag: {
         photos: protectResolver(({id}, {page}, {loggedInUser}) => {
