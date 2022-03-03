@@ -7,8 +7,8 @@
         "dev": "nodemon --exec babel-node server --delay 2s",
         "migrate": "npx prisma migrate dev --preview-feature",
         "studio": "npx prisma studio",
-        "premkdir": "mkdir folder",
-        "mkdir": "touch ./folder/.resolvers.js ./folder/.typeDefs.js "
+        "predir": "mkdir folder",
+        "dir": "touch ./folder/.resolvers.js ./folder/.typeDefs.js "
     },
     "repository": {
         "type": "git",
