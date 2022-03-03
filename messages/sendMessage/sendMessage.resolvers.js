@@ -1,5 +1,7 @@
 import e from "express";
 import client from "../../client";
+import {NEW_MESSAGE} from "../../constant";
+import pubsub from "../../pubsub";
 import {protectResolver} from "../../users/users.utils";
 
 export default {
@@ -65,7 +67,7 @@ export default {
                         };
                     }
                 }
-                await client.message.create({
+                const message = await client.message.create({
                     data: {
                         payload,
                         user: {
@@ -80,6 +82,11 @@ export default {
                         },
                     },
                 });
+                /*
+                메세지를 보면 pubsub 가 트리거를 보냄  (같은 트리거 이름으로)
+                두번째 매개변수로는 subScribe의 이름과 반환값을 적어줌.
+                */
+                pubsub.publish(NEW_MESSAGE, {roomUpdates: {...message}});
                 return {
                     ok: true,
                 };

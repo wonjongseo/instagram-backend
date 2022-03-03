@@ -1,10 +1,11 @@
 import "dotenv/config";
 import express from "express";
 import logger from "morgan";
-
+import http from "http";
 import {typeDefs, resolvers} from "./schema";
 import {ApolloServer} from "apollo-server-express";
 import {getUser} from "./users/users.utils";
+import pubsub from "./pubsub";
 
 const PORT = process.env.PORT | 4000;
 
@@ -13,10 +14,30 @@ const PORT = process.env.PORT | 4000;
 const apollo = new ApolloServer({
     typeDefs,
     resolvers,
-    context: async ({req}) => {
-        return {
-            loggedInUser: await getUser(req.headers.authorization),
-        };
+    context: async (ctx) => {
+        if (ctx.req) {
+            return {
+                loggedInUser: await getUser(ctx.req.headers.authorization),
+            };
+        } else {
+            return {
+                loggedInUser: ctx.connection.context.loggedInUser,
+            };
+        }
+    },
+    subscriptions: {
+        onConnect: async (connectionParams, webSocket) => {
+            // connectionParams of ws == headers of http
+
+            if (!connectionParams.authorization) {
+                throw new Error("You cannot listen.");
+            }
+            const loggedInUser = await getUser(connectionParams.authorization);
+            //onConnect 에서 리턴한 값은 context 로 감
+            return {
+                loggedInUser,
+            };
+        },
     },
 });
 
@@ -25,6 +46,10 @@ const app = express();
 app.use(logger("dev"));
 apollo.applyMiddleware({app});
 app.use("/static", express.static("uploads"));
-app.listen({port: PORT}, () => {
+// ws 프트로콜을 사용할 수 있는 준비.
+const httpServer = http.createServer(app);
+apollo.installSubscriptionHandlers(httpServer);
+
+httpServer.listen(PORT, () => {
     console.log(`🚀Server is running on http://localhost:${PORT}/graphql ✅`);
 });
