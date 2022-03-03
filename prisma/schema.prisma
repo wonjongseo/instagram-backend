@@ -22,6 +22,9 @@ model User {
   photos  Photo[]
   likes Like[]
   comments Comment[]
+  rooms Room[]
+  messages Message[]
+
   followers User[]   @relation("FollowRelation", references: [id])
   following User[]   @relation("FollowRelation", references: [id])
   createAt DateTime @default(now())
@@ -70,6 +73,24 @@ model Comment {
   userId Int
   photoId Int
   payload String
+}
+model Room {
+    id        Int      @id @default(autoincrement()) 
+    createAt DateTime @default(now())
+    updateAt DateTime @updatedAt
+    users User[]
+    message Message[]
+}
 
+model Message {
+  id        Int      @id @default(autoincrement())
+  payload   String
+  user      User     @relation(fields: [userId], references: [id],onDelete: Cascade)
+  userId    Int
+  room      Room     @relation(fields: [roomId], references: [id],onDelete: Cascade)
+  roomId    Int
+  read Boolean @default(false)
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 
 }

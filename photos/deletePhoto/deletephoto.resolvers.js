@@ -1,4 +1,5 @@
 import client from "../../client";
+import {deletePhotoS3} from "../../shared/shared.utils";
 import {protectResolver} from "../../users/users.utils";
 
 export default {
@@ -10,8 +11,10 @@ export default {
                 },
                 select: {
                     userId: true,
+                    file: true,
                 },
             });
+
             if (!photo) {
                 return {
                     ok: false,
@@ -23,11 +26,13 @@ export default {
                     error: "Not authorized.",
                 };
             } else {
+                await deletePhotoS3(photo.file, "uploads");
                 await client.photo.delete({
                     where: {
                         id,
                     },
                 });
+
                 return {
                     ok: true,
                 };
