@@ -2,22 +2,11 @@ import client from "../../client";
 
 export default {
     Query: {
-        seeHashtag: async (_, {hashtag}) => {
-            try {
-                const hashtag = await client.hashtag.findUnique({
-                    where: {hashtag},
-                });
-
-                return {
+        seeHashtag: (_, {hashtag}) =>
+            client.hashtag.findUnique({
+                where: {
                     hashtag,
-                    ok: true,
-                };
-            } catch (error) {
-                return {
-                    error,
-                    ok: true,
-                };
-            }
-        },
+                },
+            }),
     },
 };

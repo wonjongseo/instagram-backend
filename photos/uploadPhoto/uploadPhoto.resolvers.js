@@ -2,7 +2,6 @@ import {hash} from "bcrypt";
 import client from "../../client";
 import {protectResolver} from "../../users/users.utils";
 import {processHashtags} from "../photos.utils";
-
 export default {
     Mutation: {
         uploadPhoto: protectResolver(
@@ -11,8 +10,7 @@ export default {
                 if (caption) {
                     hashtagObj = processHashtags(caption);
                 }
-
-                return await client.photo.create({
+                return client.photo.create({
                     data: {
                         file,
                         caption,
@@ -21,7 +19,7 @@ export default {
                                 id: loggedInUser.id,
                             },
                         },
-                        ...(hashtagObj?.length > 0 && {
+                        ...(hashtagObj.length > 0 && {
                             hashtags: {
                                 connectOrCreate: hashtagObj,
                             },

@@ -3,8 +3,8 @@ import {protectResolver} from "../../users/users.utils";
 
 export default {
     Mutation: {
-        deletePhoto: protectResolver(async (_, {id}, {loggedInUser}) => {
-            const photo = await client.photo.findUnique({
+        deleteComment: protectResolver(async (_, {id}, {loggedInUser}) => {
+            const comment = await client.comment.findUnique({
                 where: {
                     id,
                 },
@@ -12,18 +12,18 @@ export default {
                     userId: true,
                 },
             });
-            if (!photo) {
+            if (!comment) {
                 return {
                     ok: false,
-                    error: "Photo not found.",
+                    error: "Comment not found.",
                 };
-            } else if (photo.userId !== loggedInUser.id) {
+            } else if (comment.userId !== loggedInUser.id) {
                 return {
                     ok: false,
                     error: "Not authorized.",
                 };
             } else {
-                await client.photo.delete({
+                await client.comment.delete({
                     where: {
                         id,
                     },
