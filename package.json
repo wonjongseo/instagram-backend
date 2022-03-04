@@ -23,6 +23,7 @@
     },
     "homepage": "https://github.com/wonjongseo/instagram-backend#readme",
     "dependencies": {
+        "@babel/cli": "^7.17.6",
         "@prisma/client": "^3.10.0",
         "apollo-server": "^2.25.2",
         "apollo-server-express": "^2.19.2",

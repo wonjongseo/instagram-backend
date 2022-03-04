@@ -16,6 +16,7 @@ export default {
                     loggedInUser.id,
                     "uploads"
                 );
+                console.log(fileUrl);
                 return client.photo.create({
                     data: {
                         file: fileUrl,

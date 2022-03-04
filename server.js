@@ -17,7 +17,7 @@ const apollo = new ApolloServer({
     context: async (ctx) => {
         if (ctx.req) {
             return {
-                loggedInUser: await getUser(ctx.req.headers.authorization),
+                loggedInUser: await getUser(ctx.req.headers.token),
             };
         } else {
             return {
@@ -29,10 +29,10 @@ const apollo = new ApolloServer({
         onConnect: async (connectionParams, webSocket) => {
             // connectionParams of ws == headers of http
 
-            if (!connectionParams.authorization) {
+            if (!connectionParams.token) {
                 throw new Error("You cannot listen.");
             }
-            const loggedInUser = await getUser(connectionParams.authorization);
+            const loggedInUser = await getUser(connectionParams.token);
             //onConnect 에서 리턴한 값은 context 로 감
             return {
                 loggedInUser,

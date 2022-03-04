@@ -5,7 +5,7 @@ AWS.config.update({
         accessKeyId: process.env.AWS_ACCESS,
         secretAccessKey: process.env.AWS_SECRET,
     },
-    region: "ap-northeast-2",
+    region: "ap-northeast-1",
 });
 
 const Bucket = "instargram-jongseo";
@@ -38,10 +38,11 @@ export const uploadToS3 = async (file, userId, folderName) => {
     const {Location} = await new AWS.S3()
         .upload({
             Bucket: "instargram-jongseo",
-            // Bucket: "filotshopping",
+
             Key: objectName,
             ACL: "public-read",
             Body: readStream,
+            ContentType: "image/jpg",
         })
         .promise();
     return Location;
