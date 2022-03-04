@@ -1,5 +1,4 @@
 import "dotenv/config";
-import express from "express";
 import logger from "morgan";
 import http from "http";
 import {typeDefs, resolvers} from "./schema";
@@ -45,7 +44,6 @@ const apollo = new ApolloServer({
 
 const app = express();
 
-app.use(logger("dev"));
 apollo.applyMiddleware({app});
 app.use("/static", express.static("uploads"));
 // ws 프트로콜을 사용할 수 있는 준비.
