@@ -3,6 +3,7 @@ import http from "http";
 import {typeDefs, resolvers} from "./schema";
 import {ApolloServer} from "apollo-server-express";
 import {getUser} from "./users/users.utils";
+import express from "express";
 import pubsub from "./pubsub";
 
 const PORT = process.env.PORT;
