@@ -1,5 +1,4 @@
 import "dotenv/config";
-import logger from "morgan";
 import http from "http";
 import {typeDefs, resolvers} from "./schema";
 import {ApolloServer} from "apollo-server-express";
