@@ -1,12 +1,13 @@
 import "dotenv/config";
 import express from "express";
+import logger from "morgan";
 import http from "http";
 import {typeDefs, resolvers} from "./schema";
 import {ApolloServer} from "apollo-server-express";
 import {getUser} from "./users/users.utils";
 import pubsub from "./pubsub";
 
-const PORT = process.env.PORT | 4000;
+const PORT = process.env.PORT;
 
 // Upload 타입을 쓰기 위해선
 // apollo server 가 스키마를 만들어야함.
@@ -14,6 +15,7 @@ const apollo = new ApolloServer({
     typeDefs,
     resolvers,
     playground: true,
+    introspection: true,
     context: async (ctx) => {
         if (ctx.req) {
             return {
@@ -43,6 +45,7 @@ const apollo = new ApolloServer({
 
 const app = express();
 
+app.use(logger("dev"));
 apollo.applyMiddleware({app});
 app.use("/static", express.static("uploads"));
 // ws 프트로콜을 사용할 수 있는 준비.
