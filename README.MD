@@ -1,10 +1,13 @@
-# 백엔드 기술을 위한 클론 인스타그램 만들기
+# 백엔드 실력을 위한 클론 인스타그램 만들기
 
 # 사용 기술
 1. GraphQl
 2. Apollo Server
 3. React JS
 4. Prisma
+
+https://6223027783e8a900084abb7f--jongseo-instagrame.netlify.app/
+
 <img width="725" alt="image" src="https://user-images.githubusercontent.com/63527605/156888524-1a4e7e37-9cc3-474d-a348-3fcc7c7829be.png">
 <img width="670" alt="image" src="https://user-images.githubusercontent.com/63527605/156888528-5c9a0471-6d8e-48d5-89f7-662fd58ad9a2.png">
 
@@ -15,8 +18,5 @@
 
 <img width="1109" alt="image" src="https://user-images.githubusercontent.com/63527605/156888549-7faad0de-2860-4080-b4c8-c75ae374b36f.png">
 
-https://6223027783e8a900084abb7f--jongseo-instagrame.netlify.app/
 
 
-
-instagram bulit with apollo server and graphQl
